@@ -1,0 +1,14 @@
+{
+  "licenseTypes": [
+    {
+      "name": "flexXL",
+      "licenseTypeCode": "flex_xl",
+      "description": ""
+    },
+    {
+      "name": "standAlone",
+      "licenseTypeCode": "stand_alone",
+      "description": ""
+    }
+  ]
+}
