@@ -4,6 +4,18 @@ import mongoose from "mongoose"
 
 const Licenses = mongoose.model('License');
 
+
+exports.fileUpload = (req, res) => {
+    res.redirect('/');
+}
+
+exports.fileUploadRedir = (req, res) => {
+    res.sendFile(__dirname + '/history');
+    console.log(req.body) // form fields
+    console.log(req.files) // form files
+    res.status(204).end()
+}
+
 exports.listAllMacAddress = (req, res) => {
   function parserMacAddresResp(macList) {
     return _.forEach(macList, function (value) {

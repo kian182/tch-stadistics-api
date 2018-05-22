@@ -7,7 +7,20 @@ module.exports = app => {
   var licTypeHandlers = require('../controllers/licenseType.cntrl.js');
   var historyHandlers = require('../controllers/history.cntrl');
 
-  // todoList koRoutes
+  const multer = require('multer');
+    var storage = multer.diskStorage(
+        {
+            destination: './uploads/',
+            filename: function ( req, file, cb ) {
+                //req.body is empty...
+                cb( null, file.originalname );
+            }
+        }
+    );
+
+    var upload = multer({ storage: storage })
+
+    // todoList koRoutes
   // app.route('/tasks')
   //   .get(todoList.list_all_tasks)
   //   .post(userHandlers.loginRequired, todoList.create_a_task);
@@ -38,8 +51,9 @@ module.exports = app => {
     .get(userHandlers.loginRequired, historyHandlers.licensesList)
     .post(userHandlers.loginRequired, licGeneratorHandlers.licGenerate)
 
-  // app.route('/licenses/tree')
-  //   .get(historyHandlers.licensesListTree)
+  app.route('/file/upload')
+    .get(historyHandlers.fileUploadRedir)
+    .post(upload.single('file-to-upload'),historyHandlers.fileUpload)
 
   app.route('/licenses/:licenseId')
     .delete(userHandlers.loginRequired, licGeneratorHandlers.deleteLicense)
