@@ -6,14 +6,15 @@ const Licenses = mongoose.model('License');
 
 
 exports.fileUpload = (req, res) => {
-    res.redirect('/');
+    res.redirect('history');
 }
 
 exports.fileUploadRedir = (req, res) => {
-    res.sendFile(__dirname + '/history');
-    console.log(req.body) // form fields
-    console.log(req.files) // form files
-    res.status(204).end()
+    res.sendFile(__dirname + '/#/history');
+    if(err) {
+        return res.end("Error uploading file.");
+    }
+    res.end("File is uploaded");
 }
 
 exports.listAllMacAddress = (req, res) => {

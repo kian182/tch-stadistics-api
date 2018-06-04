@@ -18,7 +18,7 @@ module.exports = app => {
         }
     );
 
-    var upload = multer({ storage: storage })
+    var upload = multer({ storage : storage }).array('file-to-upload',3);
 
     // todoList koRoutes
   // app.route('/tasks')
@@ -40,8 +40,10 @@ module.exports = app => {
     .delete(userHandlers.loginRequired, userHandlers.logout)
 
   app.route('/config/licenseType')
-    .get(userHandlers.loginRequired, licTypeHandlers.readLicenseTypes)
     .put(userHandlers.loginRequired, licTypeHandlers.updateLicenseType)
+
+  app.route('/')
+      .get(userHandlers.loginRequired, licTypeHandlers.readLicenseTypes)
 
   /***
    * query params
@@ -53,7 +55,7 @@ module.exports = app => {
 
   app.route('/file/upload')
     .get(historyHandlers.fileUploadRedir)
-    .post(upload.single('file-to-upload'),historyHandlers.fileUpload)
+    .post(upload,historyHandlers.fileUpload)
 
   app.route('/licenses/:licenseId')
     .delete(userHandlers.loginRequired, licGeneratorHandlers.deleteLicense)
